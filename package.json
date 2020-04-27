@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "license": "MIT",
   "bin": {
-    "serve": "./src/index.js"
+    "svelte-serve": "./src/index.js"
   },
   "dependencies": {
     "chalk": "^4.0.0",
