@@ -3,16 +3,28 @@
   "version": "0.0.1",
   "license": "MIT",
   "bin": {
-    "svelte-serve": "./src/index.js"
+    "svelte-serve": "./bin/index.js"
+  },
+  "scripts": {
+    "dev": "tsc -p tsconfig.json -w"
   },
   "dependencies": {
     "chalk": "^4.0.0",
     "es-module-lexer": "^0.3.18",
     "express": "^4.17.1",
     "fresh": "^0.5.2",
+    "koa": "^2.11.0",
+    "koa-conditional-get": "^2.0.0",
+    "koa-etag": "^3.0.0",
+    "koa-static": "^5.0.0",
     "lru-cache": "^5.1.1",
     "magic-string": "^0.25.7",
     "resolve-from": "^5.0.0",
-    "svelte": "^3.21.0"
+    "svelte": "^3.21.0",
+    "svelte-hmr": "^0.7.0",
+    "typescript": "^3.8.3"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.11.3"
   }
 }
