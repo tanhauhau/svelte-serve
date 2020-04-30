@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "outDir": "../../dist",
+    "sourceMap": false,
+    "target": "es2018",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "declaration": true,
+    "allowJs": false,
+    "allowSyntheticDefaultImports": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "removeComments": false,
+    "module": "commonjs",
+    "lib": ["es2018"]
+  }
+}
