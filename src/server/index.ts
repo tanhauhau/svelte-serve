@@ -13,7 +13,7 @@ export function startDevServer(root: string) {
   const app = new Koa();
 
   modulePlugin({ app, root });
-  sveltePlugin({ app });
+  sveltePlugin({ app, root });
   servePlugin({ app, root });
 
   const server = http.createServer(app.callback());

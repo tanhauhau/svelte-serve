@@ -18,6 +18,7 @@
     "es-module-lexer": "^0.3.18",
     "express": "^4.17.1",
     "fresh": "^0.5.2",
+    "inquirer": "^7.1.0",
     "koa": "^2.11.0",
     "koa-conditional-get": "^2.0.0",
     "koa-etag": "^3.0.0",
@@ -25,6 +26,7 @@
     "koa-static": "^5.0.0",
     "lru-cache": "^5.1.1",
     "magic-string": "^0.25.7",
+    "ora": "^4.0.4",
     "resolve-from": "^5.0.0",
     "svelte": "^3.21.0",
     "svelte-hmr": "^0.7.0",
@@ -33,7 +35,12 @@
   "devDependencies": {
     "@types/es-module-lexer": "^0.3.0",
     "@types/estree": "^0.0.44",
+    "@types/inquirer": "^6.5.0",
     "@types/koa": "^2.11.3",
+    "@types/sass": "^1.16.0",
     "estree-walker": "^2.0.1"
+  },
+  "prettier": {
+    "printWidth": 1000
   }
 }

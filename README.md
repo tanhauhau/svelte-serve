@@ -5,6 +5,6 @@
 Inspired by [vite](https://github.com/vuejs/vite)
 
 TODO
-- [ ] preprocessors
+- [ ] preprocessors (in progress)
 - [ ] HMR
 - [ ] source map
