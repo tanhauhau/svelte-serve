@@ -18,6 +18,13 @@ const alias = new Map([
   ["ts", "typescript"],
 ]);
 
+export function getTransformCodePreprocessor(root: string) {
+  return {
+    style: getPreprocessor({ root, to: "style" }),
+    script: getPreprocessor({ root, to: "script" }),
+  };
+}
+
 export async function transform(transformConfig: TransformConfig) {
   let { from, to, desc } = transformConfig;
   from = from.toLowerCase();
@@ -33,4 +40,36 @@ export async function transform(transformConfig: TransformConfig) {
   }
 
   return await TRANSFORMERS[transformerName](transformConfig);
+}
+
+function getPreprocessor({ root, to }: { root: string; to: string }) {
+  return async function ({ content, attributes, filename }: { content: string; attributes: Record<string, string | boolean>; filename: string }) {
+    const lang = getLang(attributes);
+    if (!lang) {
+      return { code: content };
+    }
+    return await transform({
+      ...lang,
+      to,
+      content,
+      filename,
+      root,
+    });
+  };
+}
+
+function getLang(attributes: Record<string, string | boolean>) {
+  if (typeof attributes.lang === "string") {
+    return {
+      from: attributes.lang,
+      desc: `lang="${attributes.lang}"`,
+    };
+  }
+  if (typeof attributes.type === "string") {
+    const lang = attributes.type.replace(/^(text|application)\/(.*)$/, "$2");
+    return {
+      from: lang,
+      desc: `type="${attributes.type}"`,
+    };
+  }
 }

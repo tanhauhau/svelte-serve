@@ -4,7 +4,7 @@ import path from "path";
 import { init, parse } from "es-module-lexer";
 import { compile, preprocess } from "svelte/compiler";
 import MagicString from "magic-string";
-import { transform } from "./preprocessors";
+import { getTransformCodePreprocessor } from "./preprocessors";
 const fs = _fs.promises;
 
 export default function ({ app, root }: { app: Koa; root: string }) {
@@ -13,7 +13,7 @@ export default function ({ app, root }: { app: Koa; root: string }) {
     if (!ctx.resolvedPath.endsWith(".svelte")) return next();
 
     await next();
-    
+
     if (ctx.status === 304) {
       // Not modified
       return;
@@ -23,16 +23,9 @@ export default function ({ app, root }: { app: Koa; root: string }) {
 
     const svelteCode = await fs.readFile(ctx.resolvedPath, "utf-8");
 
-    const { code: preprocessedCode, dependencies } = await preprocess(
-      svelteCode,
-      {
-        style: getPreprocessor({ root, to: "style" }),
-        script: getPreprocessor({ root, to: "script" }),
-      },
-      {
-        filename: path.basename(ctx.path),
-      }
-    );
+    const { code: preprocessedCode, dependencies } = await preprocess(svelteCode, [getTransformCodePreprocessor(root)], {
+      filename: path.basename(ctx.path),
+    });
     const { js } = compile(preprocessedCode, {});
 
     // TODO: watch these files too
@@ -59,36 +52,4 @@ export default function ({ app, root }: { app: Koa; root: string }) {
     ctx.body = jsCode;
     ctx.set("Content-Type", "text/javascript");
   });
-}
-
-function getPreprocessor({ root, to }: { root: string; to: string }) {
-  return async function ({ content, attributes, filename }: { content: string; attributes: Record<string, string | boolean>; filename: string }) {
-    const lang = getLang(attributes);
-    if (!lang) {
-      return { code: content };
-    }
-    return await transform({
-      ...lang,
-      to,
-      content,
-      filename,
-      root,
-    });
-  };
-}
-
-function getLang(attributes: Record<string, string | boolean>) {
-  if (typeof attributes.lang === "string") {
-    return {
-      from: attributes.lang,
-      desc: `lang="${attributes.lang}"`,
-    };
-  }
-  if (typeof attributes.type === "string") {
-    const lang = attributes.type.replace(/^(text|application)\/(.*)$/, "$2");
-    return {
-      from: lang,
-      desc: `type="${attributes.type}"`,
-    };
-  }
 }
