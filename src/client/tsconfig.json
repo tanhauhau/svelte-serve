@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
+    "outDir": "../../dist",
     "sourceMap": false,
     "target": "es2018",
     "moduleResolution": "node",
@@ -13,6 +13,6 @@
     "noImplicitAny": true,
     "removeComments": false,
     "module": "commonjs",
-    "lib": ["es2018"]
+    "lib": ["es2018", "DOM"]
   }
 }

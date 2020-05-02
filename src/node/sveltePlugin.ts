@@ -1,11 +1,10 @@
 import Koa from "koa";
-import _fs from "fs";
 import path from "path";
 import { init, parse } from "es-module-lexer";
 import { compile, preprocess } from "svelte/compiler";
+import getStream from "get-stream";
 import MagicString from "magic-string";
-import { getTransformCodePreprocessor } from "./preprocessors";
-const fs = _fs.promises;
+import { getMissingDependenciesPreprocessor, getTransformCodePreprocessor } from "./preprocessors";
 
 export default function ({ app, root }: { app: Koa; root: string }) {
   app.use(async (ctx, next) => {
@@ -21,11 +20,15 @@ export default function ({ app, root }: { app: Koa; root: string }) {
 
     await init;
 
-    const svelteCode = await fs.readFile(ctx.resolvedPath, "utf-8");
+    const svelteCode = await getStream(ctx.body);
 
-    const { code: preprocessedCode, dependencies } = await preprocess(svelteCode, [getTransformCodePreprocessor(root)], {
-      filename: path.basename(ctx.path),
-    });
+    const { code: preprocessedCode, dependencies } = await preprocess(
+      svelteCode,
+      [getMissingDependenciesPreprocessor(root), getTransformCodePreprocessor(root)],
+      {
+        filename: path.basename(ctx.path),
+      }
+    );
     const { js } = compile(preprocessedCode, {});
 
     // TODO: watch these files too

@@ -1,8 +1,15 @@
 import type { TransformConfig } from "../types";
 import path from "path";
 import { loadLib } from "../utils/loadLib";
+import { resolveFrom } from "../utils/resolvedFrom";
 
 let less: any;
+
+export function getMissingDependencies({ root }: TransformConfig) {
+  if (!resolveFrom(root, "less")) {
+    return ["less"];
+  }
+}
 
 export default async function ({ to, desc, root, content, filename, options = {} }: TransformConfig) {
   if (!less) {

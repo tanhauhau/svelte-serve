@@ -2,8 +2,15 @@ import { renderSync } from "sass";
 import type { TransformConfig } from "../types";
 import path from "path";
 import { loadLib } from "../utils/loadLib";
+import { resolveFrom } from "../utils/resolvedFrom";
 
 let sass: { renderSync: typeof renderSync };
+
+export function getMissingDependencies({ root }: TransformConfig) {
+  if (!(resolveFrom(root, "sass") || resolveFrom(root, "node-sass"))) {
+    return ["sass", "node-sass"];
+  }
+}
 
 export default async function ({ to, desc, root, content, filename, options = {} }: TransformConfig) {
   if (!sass) {

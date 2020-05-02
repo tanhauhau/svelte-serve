@@ -1,12 +1,19 @@
 import type { TransformConfig } from "../types";
 import { loadLib } from "../utils/loadLib";
+import { resolveFrom } from "../utils/resolvedFrom";
 
 let ts: any;
+
+export function getMissingDependencies({ root }: TransformConfig) {
+  if (!resolveFrom(root, "typescript")) {
+    return ["typescript"];
+  }
+}
 
 export default async function ({ to, desc, root, content, filename, options = {} }: TransformConfig) {
   if (!ts) {
     const tsLib = await loadLib(["typescript"], {
-      errorMessage: `$1 are required for <${to} ${desc}>`,
+      errorMessage: `$1 is required for <${to} ${desc}>`,
       root,
     });
     ts = tsLib.default;

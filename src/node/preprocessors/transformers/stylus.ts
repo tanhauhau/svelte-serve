@@ -1,8 +1,15 @@
 import type { TransformConfig } from "../types";
 import path from "path";
 import { loadLib } from "../utils/loadLib";
+import { resolveFrom } from "../utils/resolvedFrom";
 
 let stylus: any;
+
+export function getMissingDependencies({ root }: TransformConfig) {
+  if (!resolveFrom(root, "stylus")) {
+    return ["stylus"];
+  }
+}
 
 export default async function ({ desc, to, root, content, filename, options = {} }: TransformConfig) {
   if (!stylus) {

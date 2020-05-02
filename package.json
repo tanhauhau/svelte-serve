@@ -6,6 +6,7 @@
     "svelte-serve": "./bin/index.js"
   },
   "scripts": {
+    "dev": "run-p dev:client dev:node",
     "dev:client": "tsc -p src/client/tsconfig.json -w",
     "dev:node": "tsc -p src/node/tsconfig.json -w"
   },
@@ -17,6 +18,7 @@
     "@types/koa-send": "^4.1.2",
     "chalk": "^4.0.0",
     "es-module-lexer": "^0.3.18",
+    "get-stream": "^5.1.0",
     "inquirer": "^7.1.0",
     "koa": "^2.11.0",
     "koa-conditional-get": "^2.0.0",
@@ -29,7 +31,8 @@
     "resolve-from": "^5.0.0",
     "svelte": "^3.21.0",
     "svelte-hmr": "^0.7.0",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "ws": "^7.2.5"
   },
   "devDependencies": {
     "@types/es-module-lexer": "^0.3.0",
@@ -37,10 +40,11 @@
     "@types/inquirer": "^6.5.0",
     "@types/koa": "^2.11.3",
     "@types/sass": "^1.16.0",
+    "@types/ws": "^7.2.4",
     "estree-walker": "^2.0.1",
     "npm-run-all": "^4.1.5"
   },
   "prettier": {
-    "printWidth": 1000
+    "printWidth": 140
   }
 }
