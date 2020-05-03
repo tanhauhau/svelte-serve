@@ -133,7 +133,7 @@ async function getImportStatement(source: string) {
       const [imports] = parse(content);
       for (const { s, e } of imports) {
         const importee = content.substring(s, e);
-        if (!(importee === "svelte" || importee.startsWith("svelte/"))) {
+        if (!(importee === "svelte" || importee.startsWith("svelte/") || importee.startsWith("./"))) {
           dependencies.add(importee);
         }
       }
