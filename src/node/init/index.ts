@@ -70,17 +70,20 @@ export async function initSvelteApp(folderName: string | void) {
     try {
       await fs.mkdir(targetDirectory);
     } catch (e) {
-      console.error(`Error: target directory already exists.`);
-      return;
+      return spinner.fail(`Target directory "${folderName}" already exists.`);
     }
   }
 
-  await copyFile("index.html");
-  await copyFile("App.svelte");
-  await copyFile("package.json", { "%%packageName%%": folderName, "%%description%%": "svelte-serve template" });
+  try {
+    await copyFile("index.html");
+    await copyFile("App.svelte");
+    await copyFile("package.json", { "%%packageName%%": folderName, "%%description%%": "svelte-serve template" });
 
-  spinner.succeed(`Initialised ${folderName} at ${targetDirectory}!`);
-  printWelcome(folderName);
+    spinner.succeed(`Initialised ${folderName} at ${targetDirectory}!`);
+    printWelcome(folderName);
+  } catch (error) {
+    return spinner.fail(error.message);
+  }
 
   async function copyFile(filename: string, replacement?: Record<string, string>) {
     let content = await fs.readFile(path.join(templateDirectory, filename), "utf-8");
@@ -100,7 +103,7 @@ async function askForFolderName(defaultValue: string | void) {
       type: "input",
       name: "folderName",
       message: "Please specify folder name:",
-      default: defaultValue || "",
+      default: defaultValue,
       validate(str) {
         return !!str;
       },

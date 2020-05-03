@@ -9,7 +9,7 @@
     "dev": "run-p dev:client dev:node",
     "dev:client": "tsc -p src/client/tsconfig.json -w",
     "dev:node": "tsc -p src/node/tsconfig.json -w",
-    "build": "tsc -p src/client/tsconfig.json && tsc -p src/node/tsconfig.json && cp -r src/node/init/template dist/init/template"
+    "build": "tsc -p src/client/tsconfig.json && tsc -p src/node/tsconfig.json && rm -rf dist/init/template && cp -r src/node/init/template dist/init/template"
   },
   "files": [
     "bin",
