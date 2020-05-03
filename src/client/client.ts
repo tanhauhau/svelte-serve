@@ -26,7 +26,7 @@ socket.addEventListener("close", () => {
 });
 
 const HMR_MISSING_DEPENDENCIES = "hmr_missing_dependencies";
-function handleMissingDependencies({ message, dependencies }) {
+function handleMissingDependencies({ message, dependencies }: { message: string[]; dependencies: string[][] }) {
   const div = document.createElement("div");
   div.id = HMR_MISSING_DEPENDENCIES;
   div.innerHTML = `

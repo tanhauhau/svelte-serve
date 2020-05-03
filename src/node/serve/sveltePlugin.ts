@@ -4,7 +4,7 @@ import { init, parse } from "es-module-lexer";
 import { compile, preprocess } from "svelte/compiler";
 import getStream from "get-stream";
 import MagicString from "magic-string";
-import { getMissingDependenciesPreprocessor, getTransformCodePreprocessor } from "./preprocessors";
+import { getMissingDependenciesPreprocessor, getTransformCodePreprocessor } from "../preprocessors";
 
 export default function ({ app, root }: { app: Koa; root: string }) {
   app.use(async (ctx, next) => {

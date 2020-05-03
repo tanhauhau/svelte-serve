@@ -1,7 +1,7 @@
 import path from "path";
 import type { TransformConfig, TransformResult } from "./types";
 import { promptToInstall } from "./utils/installHelper";
-import { broadcast } from "../wss";
+import { broadcast } from "../serve/wss";
 import chalk from "chalk";
 import { or } from "./utils/or";
 const TRANSFORMERS: {
