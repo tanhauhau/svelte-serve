@@ -13,7 +13,7 @@ export default function ({ app, root }: { app: Koa; root: string }) {
       return;
     }
 
-    if (ctx.response.header["content-type"].indexOf("text/html") > -1) {
+    if (ctx.response.header["content-type"]?.indexOf("text/html") > -1) {
       const body = await getStream(ctx.body);
       ctx.body = '<script type="module" src="/@hmr"></script>' + body;
     }

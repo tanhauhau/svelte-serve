@@ -9,6 +9,8 @@ export default function ({ app, root }: { app: Koa; root: string }) {
       return send(ctx, ctx.resolvedPath, {
         root: "/",
         index: "index.html",
+        // when installed in global, path will contain hidden files
+        hidden: true,
       });
     }
     ctx.status = 404;
