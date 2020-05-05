@@ -1,10 +1,32 @@
-# svelte-serve [WIP]
+# svelte-serve
 
-> No-bundle Dev Server for Svelte
+Create Svelte app with no configuration.
 
-Inspired by [vite](https://github.com/vuejs/vite)
+## Quick Overview
 
-TODO
+### Init a Svelte app
+
+```sh
+npx svelte-serve init app-name
+```
+
+### Init a Svelte app from [Svelte REPL](https://svelte.dev/repl)
+
+```sh
+npx svelte-serve init https://svelte.dev/repl/hello-world?version=3.22.2
+```
+
+### Serve Svelte app from a folder
+
+```sh
+npx svelte-serve .
+```
+
+## TODO
 - [ ] preprocessors (in progress)
 - [ ] HMR
 - [ ] source map
+
+## License
+
+MIT
