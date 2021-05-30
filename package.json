@@ -32,7 +32,7 @@
     "resolve-from": "^5.0.0",
     "svelte": "^3.21.0",
     "svelte-hmr": "^0.7.0",
-    "ws": "^7.2.5"
+    "ws": "^7.4.6"
   },
   "devDependencies": {
     "@types/es-module-lexer": "^0.3.0",
