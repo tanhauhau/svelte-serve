@@ -30,7 +30,7 @@
     "node-fetch": "^2.6.0",
     "ora": "^4.0.4",
     "resolve-from": "^5.0.0",
-    "svelte": "^3.21.0",
+    "svelte": "^3.49.0",
     "svelte-hmr": "^0.7.0",
     "ws": "^7.2.5"
   },
